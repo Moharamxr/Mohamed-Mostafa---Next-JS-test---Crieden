@@ -9,17 +9,18 @@ import ProductCard from "./ProductCard";
 import ProductCardSkeleton from "./ProductCardSkeleton";
 import ProductsPagination from "./ProductsPagination";
 import { getGridClass } from "@/utils/grid-utils";
-import { 
+import {
   filterProductsByCategory,
   paginateProducts,
-  calculateTotalPages
+  calculateTotalPages,
 } from "@/utils/product-utils";
 
 const ITEMS_PER_PAGE = 10;
 const SKELETON_COUNT = 10; // Number of skeleton cards to show while loading
 
 const Products = () => {
-  const [selectedCategory, setSelectedCategory] = useState<ItemsCategory>("all");
+  const [selectedCategory, setSelectedCategory] =
+    useState<ItemsCategory>("all");
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -37,6 +38,7 @@ const Products = () => {
         setProducts(allProducts);
         setLoading(false);
       } catch (err) {
+        console.error(err);
         setError("Failed to load products");
         setLoading(false);
       }
@@ -49,18 +51,22 @@ const Products = () => {
   useEffect(() => {
     // Filter products by category
     const filtered = filterProductsByCategory(products, selectedCategory);
-    
+
     // Calculate total pages
     const pages = calculateTotalPages(filtered.length, ITEMS_PER_PAGE);
     setTotalPages(pages);
-    
+
     // Reset to first page when changing categories
     if (currentPage > pages) {
       setCurrentPage(1);
     }
-    
+
     // Get products for current page
-    const paginatedProducts = paginateProducts(filtered, currentPage, ITEMS_PER_PAGE);
+    const paginatedProducts = paginateProducts(
+      filtered,
+      currentPage,
+      ITEMS_PER_PAGE
+    );
     setFilteredProducts(paginatedProducts);
   }, [products, selectedCategory, currentPage]);
 
@@ -82,9 +88,9 @@ const Products = () => {
       <div className="flex flex-col gap-4 mb-6 mt-6">
         {/* Filter controls - stacked on mobile, row on desktop */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <CategoryFilter 
-            selectedCategory={selectedCategory} 
-            setSelectedCategory={handleCategoryChange} 
+          <CategoryFilter
+            selectedCategory={selectedCategory}
+            setSelectedCategory={handleCategoryChange}
           />
           {/* Grid view controls - centered on mobile */}
           <div className="flex justify-center sm:justify-end items-center gap-3">
@@ -112,17 +118,15 @@ const Products = () => {
         <>
           {/* Products Grid - Dynamic grid class based on view setting */}
           <div className={`grid ${getGridClass(gridView)}`}>
-            {loading ? (
-              // Render skeleton cards during loading
-              Array.from({ length: SKELETON_COUNT }).map((_, index) => (
-                <ProductCardSkeleton key={index} />
-              ))
-            ) : (
-              // Render actual product cards when data is loaded
-              filteredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))
-            )}
+            {loading
+              ? // Render skeleton cards during loading
+                Array.from({ length: SKELETON_COUNT }).map((_, index) => (
+                  <ProductCardSkeleton key={index} />
+                ))
+              : // Render actual product cards when data is loaded
+                filteredProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
           </div>
 
           {/* Pagination - show only when not loading */}

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
@@ -12,6 +12,16 @@ const inter = Inter({ subsets: ["latin"] });
 const siteName = "FASCO";
 const siteDescription = "Premium fashion and lifestyle online store offering curated collections for the modern individual.";
 const siteUrl = "https://fasco-store.com"; // Replace with your actual domain
+
+// Move themeColor to viewport export
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+}
 
 export const metadata: Metadata = {
   // Basic metadata
@@ -106,12 +116,6 @@ export const metadata: Metadata = {
     },
   },
   
-  // Theme color
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
-  ],
-  
   // Content security policy
   metadataBase: new URL(siteUrl),
   
@@ -146,6 +150,7 @@ export const metadata: Metadata = {
     email: true,
     url: true,
   },
+  // themeColor has been removed from here
 };
 
 export default function RootLayout({

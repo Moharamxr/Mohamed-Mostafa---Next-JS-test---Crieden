@@ -41,14 +41,14 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
         >
           <DropdownMenuRadioItem value="all">All categories</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="men's clothing">
-            Men's clothing
+            Men&apos;s clothing
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="jewelery">Jewelery</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="electronics">
             Electronics
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="women's clothing">
-            Women's clothing
+            Women&apos;s clothing
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
