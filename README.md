@@ -65,10 +65,11 @@
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/fasco-ecommerce.git
+git clone https://github.com/Moharamxr/Mohamed-Mostafa---Next-JS-test---Crieden
 
 # 2. Install dependencies
-cd fasco-ecommerce
+cd Mohamed-Mostafa---Next-JS-test---Crieden
+
 npm install
 
 # 3. Start the development server

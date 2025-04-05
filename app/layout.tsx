@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 // Define site configuration constants
 const siteName = "FASCO";
 const siteDescription = "Premium fashion and lifestyle online store offering curated collections for the modern individual.";
-const siteUrl = "https://fasco-store.com"; // Replace with your actual domain
+const siteUrl = "https://fasco-orcin.vercel.app";
 
 // Move themeColor to viewport export
 export const viewport: Viewport = {
@@ -168,11 +168,6 @@ export default function RootLayout({
           <Toaster 
             position="top-right" 
             toastOptions={{
-              style: {
-                background: "black",
-                color: "white",
-                border: "1px solid #333"
-              },
               className: "my-toast-class"
             }}
           />

@@ -11,7 +11,7 @@ interface ViewToggleProps {
 
 const ViewToggle: React.FC<ViewToggleProps> = ({ gridView, setGridView }) => {
   return (
-    <div className="flex items-center space-x-2">
+    <div className="hidden lg:flex items-center space-x-2">
       <span className="text-sm text-gray-500">View:</span>
       <Button
         variant="outline"
