@@ -147,7 +147,7 @@ const ProductDetails = () => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink>{product.title}</BreadcrumbLink>
+            <BreadcrumbLink href={`/products/${product.id}`}>{product.title}</BreadcrumbLink>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
