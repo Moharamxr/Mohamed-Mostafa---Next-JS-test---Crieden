@@ -3,12 +3,11 @@ import React from "react";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "../ui/pagination";
+} from "@/components/ui/pagination";
 
 interface ProductsPaginationProps {
   currentPage: number;
@@ -21,124 +20,69 @@ const ProductsPagination: React.FC<ProductsPaginationProps> = ({
   totalPages,
   handlePageChange,
 }) => {
-  const renderPaginationItems = () => {
-    const items = [];
+  // Don't render pagination if there's only one page
+  if (totalPages <= 1) {
+    return null;
+  }
 
-    // Show first page only for medium screens and up
-    items.push(
-      <PaginationItem
-        key="first"
-        className={currentPage !== 1 ? "hidden sm:flex" : ""}
-      >
-        <PaginationLink
-          isActive={currentPage === 1}
-          onClick={() => handlePageChange(1)}
-        >
-          1
-        </PaginationLink>
-      </PaginationItem>
-    );
+  const generatePageNumbers = () => {
+    const pages = [];
+    const maxVisiblePages = 5;
+    const halfVisiblePages = Math.floor(maxVisiblePages / 2);
 
-    // Show ellipsis if needed - hide on mobile
-    if (currentPage > 3) {
-      items.push(
-        <PaginationItem key="ellipsis1" className="hidden sm:flex">
-          <PaginationEllipsis />
-        </PaginationItem>
-      );
+    // Logic to determine which page numbers to show
+    let startPage = Math.max(1, currentPage - halfVisiblePages);
+    // Using const instead of let since endPage is never reassigned after initial calculation
+    const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    // Adjust if we're near the end
+    if (endPage - startPage + 1 < maxVisiblePages) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
     }
 
-    // Show current page and one page before and after on mobile
-    // Show current page and two pages before and after on desktop
-    const mobileRange = 1;
-    const desktopRange = 2;
-
-    for (
-      let i = Math.max(2, currentPage - desktopRange);
-      i <= Math.min(totalPages - 1, currentPage + desktopRange);
-      i++
-    ) {
-      if (i === 1 || i === totalPages) continue;
-
-      // Determine if this page should be visible on mobile
-      const showOnMobile = Math.abs(i - currentPage) <= mobileRange;
-
-      items.push(
-        <PaginationItem
-          key={i}
-          className={showOnMobile ? "" : "hidden sm:flex"}
-        >
-          <PaginationLink
-            isActive={currentPage === i}
-            onClick={() => handlePageChange(i)}
-          >
-            {i}
-          </PaginationLink>
-        </PaginationItem>
-      );
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
     }
-
-    // Show ellipsis if needed - hide on mobile
-    if (currentPage < totalPages - 2) {
-      items.push(
-        <PaginationItem key="ellipsis2" className="hidden sm:flex">
-          <PaginationEllipsis />
-        </PaginationItem>
-      );
-    }
-
-    // Always show last page if there's more than one page - hide on mobile if not near current page
-    if (totalPages > 1) {
-      items.push(
-        <PaginationItem
-          key="last"
-          className={
-            currentPage !== totalPages && Math.abs(currentPage - totalPages) > 1
-              ? "hidden sm:flex"
-              : ""
-          }
-        >
-          <PaginationLink
-            isActive={currentPage === totalPages}
-            onClick={() => handlePageChange(totalPages)}
-          >
-            {totalPages}
-          </PaginationLink>
-        </PaginationItem>
-      );
-    }
-
-    return items;
+    return pages;
   };
 
-  if (totalPages <= 1) return null;
-  
   return (
-    <Pagination className="my-6 sm:my-8">
+    <Pagination className="my-8">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
-            className={
-              currentPage === 1
-                ? "pointer-events-none opacity-50"
-                : "cursor-pointer"
-            }
+            href={`?page=${currentPage - 1}`}
+            onClick={(e) => {
+              e.preventDefault();
+              if (currentPage > 1) handlePageChange(currentPage - 1);
+            }}
+            className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
           />
         </PaginationItem>
 
-        {renderPaginationItems()}
+        {generatePageNumbers().map((page) => (
+          <PaginationItem key={page}>
+            <PaginationLink
+              href={`?page=${page}`}
+              isActive={page === currentPage}
+              onClick={(e) => {
+                e.preventDefault();
+                handlePageChange(page);
+              }}
+            >
+              {page}
+            </PaginationLink>
+          </PaginationItem>
+        ))}
 
         <PaginationItem>
           <PaginationNext
-            onClick={() =>
-              currentPage < totalPages && handlePageChange(currentPage + 1)
-            }
-            className={
-              currentPage === totalPages
-                ? "pointer-events-none opacity-50"
-                : "cursor-pointer"
-            }
+            href={`?page=${currentPage + 1}`}
+            onClick={(e) => {
+              e.preventDefault();
+              if (currentPage < totalPages) handlePageChange(currentPage + 1);
+            }}
+            className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
           />
         </PaginationItem>
       </PaginationContent>

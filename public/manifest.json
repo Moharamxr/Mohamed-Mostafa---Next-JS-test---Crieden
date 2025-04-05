@@ -1,0 +1,15 @@
+{
+  "name": "FASCO E-commerce Store",
+  "short_name": "FASCO",
+  "description": "Premium fashion and lifestyle online store offering curated collections for the modern individual.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": ["shopping", "fashion", "lifestyle"],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
