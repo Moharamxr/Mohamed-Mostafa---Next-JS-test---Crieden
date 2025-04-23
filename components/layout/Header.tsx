@@ -25,12 +25,12 @@ const Header = () => {
     <header className="w-full px-4 sm:px-10 py-4 sm:py-8 relative z-40">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
-        <h1
+        <Link href="/"
           className="font-normal leading-none tracking-normal text-3xl sm:text-4xl md:text-[52px] text-[#484848]"
           style={{ fontFamily: "Volkhov" }}
         >
-          <Link href="/">FASCO</Link>
-        </h1>
+          FASCO
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:block">
@@ -53,7 +53,7 @@ const Header = () => {
           <IoPersonOutline className="hover:text-gray-600 transition-colors" />
           <CiStar className="hover:text-gray-600 transition-colors" />
           <div className="relative">
-            <Link href="/cart">
+            <Link href="/cart" aria-label="Shopping Cart" title='Shopping Cart'>
               <HiOutlineShoppingBag className="hover:text-gray-600 transition-colors" />
               {cartCount !== null && cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">

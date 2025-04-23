@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Homepage -->
+  <url>
+    <loc>https://fasco-orcin.vercel.app/</loc>
+    <lastmod>2025-04-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://fasco-orcin.vercel.app/en-US" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://fasco-orcin.vercel.app/fr-FR" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fasco-orcin.vercel.app/" />
+  </url>
+  
+  <!-- Products page -->
+  <url>
+    <loc>https://fasco-orcin.vercel.app/products</loc>
+    <lastmod>2025-04-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://fasco-orcin.vercel.app/en-US/products" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://fasco-orcin.vercel.app/fr-FR/products" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fasco-orcin.vercel.app/products" />
+  </url>
+  
+  <!-- Cart page -->
+  <url>
+    <loc>https://fasco-orcin.vercel.app/cart</loc>
+    <lastmod>2025-04-23</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://fasco-orcin.vercel.app/en-US/cart" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://fasco-orcin.vercel.app/fr-FR/cart" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fasco-orcin.vercel.app/cart" />
+  </url>
+  
+  <!-- Add more URLs here as your site expands -->
+</urlset>

@@ -29,6 +29,8 @@ import { addToCart } from '@/store/slices/cartSlice';
 import { toast } from "sonner";
 import ProductDetailsSkeleton from "@/components/products/ProductDetailsSkeleton";
 
+type QuantityChangeFunction = (amount: number) => void;
+
 const ProductDetails = () => {
   const params = useParams();
   const productId = params.id as string;
@@ -59,18 +61,19 @@ const ProductDetails = () => {
     }
   }, [productId]);
 
-  const handleQuantityChange = (amount: number) => {
+  // Handle increasing/decreasing quantity
+  const handleQuantityChange: QuantityChangeFunction = (amount) => {
     setQuantity((prev) => {
       const newValue = prev + amount;
       return newValue < 1 ? 1 : newValue;
     });
   };
 
+  // Add product to cart with toast notification
   const handleAddToCart = () => {
     if (product) {
       dispatch(addToCart({ product, quantity }));
       
-      // Show toast notification using Sonner
       toast.success("Added to cart", {
         description: `${quantity} × ${product.title}`,
         action: {
@@ -83,6 +86,7 @@ const ProductDetails = () => {
     }
   };
 
+  // Render star rating visualization
   const renderRatingStars = (rating: number) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -111,27 +115,30 @@ const ProductDetails = () => {
     return stars;
   };
 
+  // Loading state
   if (loading) {
     return <ProductDetailsSkeleton />;
   }
 
+  // Error state
   if (error || !product) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center p-8">
           <h2 className="text-xl font-bold mb-4">Something went wrong</h2>
           <p>{error || "Product not found"}</p>
-          <Link href="/" className="text-black underline mt-4 inline-block">
-            Return to Home
+          <Link href="/products" className="text-black underline mt-4 inline-block">
+            Return to Products
           </Link>
         </div>
       </div>
     );
   }
 
+  // Main component render
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Breadcrumbs */}
+      {/* Breadcrumbs Navigation */}
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -152,10 +159,10 @@ const ProductDetails = () => {
         </BreadcrumbList>
       </Breadcrumb>
 
-      {/* Product Details */}
+      {/* Product Details Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
         {/* Product Image */}
-        <div className="bg-white p-4 sm:p-8 flex items-center justify-center">
+        <div className="bg-white p-4 sm:p-8 flex items-center justify-center rounded-lg shadow-sm">
           <div className="relative w-full aspect-square max-w-md mx-auto">
             <Image
               src={product.image}
@@ -178,6 +185,7 @@ const ProductDetails = () => {
             {product.title}
           </h1>
 
+          {/* Product Rating */}
           <div className="flex items-center mb-4">
             <div className="flex mr-2">
               {renderRatingStars(product.rating.rate)}
@@ -187,20 +195,25 @@ const ProductDetails = () => {
             </span>
           </div>
 
+          {/* Product Price */}
           <div className="text-2xl font-bold mb-6">
             ${product.price.toFixed(2)}
           </div>
 
+          {/* Product Description */}
           <p className="text-gray-700 mb-8">{product.description}</p>
+
+          {/* Quantity and Add to Cart Section */}
           <div className="flex items-center flex-col md:flex-row gap-3 w-full">
             {/* Quantity Selector */}
             <div className="flex items-center">
               <span className="mr-4 text-sm font-medium">Quantity:</span>
-              <div className="flex items-center border border-gray-300">
+              <div className="flex items-center border border-gray-300 rounded">
                 <button
                   onClick={() => handleQuantityChange(-1)}
                   className="px-3 py-2 hover:bg-gray-100"
                   aria-label="Decrease quantity"
+                  disabled={quantity <= 1}
                 >
                   -
                 </button>
@@ -228,7 +241,7 @@ const ProductDetails = () => {
             </Button>
           </div>
 
-          {/* Additional Info */}
+          {/* Additional Product Information */}
           <div className="border-t border-gray-200 mt-8 pt-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
@@ -260,7 +273,6 @@ const ProductDetails = () => {
                 <FaCcDiscover className="text-[#FF6000] text-3xl" title="Discover" />
               </div>
             </div>
-
           </div>
         </div>
       </div>

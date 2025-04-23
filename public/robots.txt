@@ -1,0 +1,14 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://fasco-orcin.vercel.app/sitemap.xml
+
+# Disallow certain paths
+Disallow: /api/
+Disallow: /_next/
+Disallow: /*?*
+
+# Crawl delay
+Crawl-delay: 10
